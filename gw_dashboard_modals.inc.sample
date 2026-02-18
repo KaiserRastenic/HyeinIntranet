@@ -1,0 +1,14 @@
+<%
+' gw_dashboard_modals.inc
+' Classic ASP include file
+' Move modal markup blocks from dashboard.asp into this file.
+%>
+
+<!-- modal: user picker -->
+<!-- paste #gwUserModal block -->
+
+<!-- modal: memo view -->
+<!-- paste #gwMemoViewModal block -->
+
+<!-- modal: memo compose -->
+<!-- paste #gwMemoComposeModal block -->

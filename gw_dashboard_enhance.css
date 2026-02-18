@@ -1,0 +1,342 @@
+/*
+  gw_dashboard_enhance.css
+  Non-breaking enhancement layer for /intranet/main/dashboard.asp
+*/
+
+.gw-app {
+  position: relative;
+  isolation: isolate;
+}
+
+.gw-app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.36;
+  background:
+    radial-gradient(620px 360px at 8% -6%, rgba(94, 168, 255, 0.18), transparent 66%),
+    radial-gradient(540px 300px at 103% 10%, rgba(255, 108, 158, 0.16), transparent 70%),
+    radial-gradient(520px 320px at 60% 106%, rgba(117, 214, 194, 0.14), transparent 72%);
+  animation: gwxAura 12s ease-in-out infinite alternate;
+}
+
+.gw-app > * {
+  position: relative;
+  z-index: 1;
+}
+
+.gw-topbar,
+.gw-kpi-sticky,
+.card,
+.kpi-card,
+.gw-nav-item,
+.gw-nav-group-btn,
+.btn,
+.btn-chip,
+.btn-soft,
+.btn-icon,
+.gw-logout {
+  transition:
+    transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    opacity 0.28s ease;
+}
+
+.gw-topbar {
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 28px rgba(31, 47, 87, 0.14);
+}
+
+.gw-kpi-sticky {
+  backdrop-filter: blur(8px);
+}
+
+.kpi-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.52) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+
+.kpi-card:hover::after {
+  transform: translateX(120%);
+  transition: transform 0.68s ease;
+}
+
+.kpi-card:hover,
+.card:hover {
+  box-shadow: 0 18px 32px rgba(26, 46, 92, 0.2);
+  transform: translateY(-4px);
+}
+
+.gw-nav-item:hover,
+.gw-nav-group-btn:hover,
+.btn:hover,
+.btn-chip:hover,
+.btn-soft:hover,
+.btn-icon:hover {
+  transform: translateY(-2px);
+}
+
+.gw-nav-item.active {
+  box-shadow: 0 8px 18px rgba(53, 85, 146, 0.18);
+}
+
+/* Entry + reveal sequence */
+body.gwx-anim .gw-topbar {
+  opacity: 0;
+  transform: translateY(-14px);
+}
+
+body.gwx-loaded .gw-topbar {
+  animation: gwxTopIn 0.52s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+body.gwx-anim .gw-kpi-row .kpi-card {
+  opacity: 0;
+  transform: translateY(14px) scale(0.985);
+}
+
+body.gwx-loaded .gw-kpi-row .kpi-card:nth-child(1) {
+  animation: gwxRise 0.42s ease forwards 0.1s;
+}
+
+body.gwx-loaded .gw-kpi-row .kpi-card:nth-child(2) {
+  animation: gwxRise 0.42s ease forwards 0.18s;
+}
+
+body.gwx-loaded .gw-kpi-row .kpi-card:nth-child(3) {
+  animation: gwxRise 0.42s ease forwards 0.26s;
+}
+
+body.gwx-loaded .gw-kpi-row .kpi-card:nth-child(4) {
+  animation: gwxRise 0.42s ease forwards 0.34s;
+}
+
+body.gwx-anim .card {
+  opacity: 0;
+  transform: translateY(16px) scale(0.985);
+}
+
+body.gwx-anim .card.gwx-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Modal motion */
+.gw-modal .gw-modal-panel {
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  transition: transform 0.24s ease, opacity 0.24s ease;
+}
+
+.gw-modal.gwx-open .gw-modal-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.gw-modal .gw-modal-backdrop {
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.gw-modal.gwx-open .gw-modal-backdrop {
+  opacity: 1;
+}
+
+/* Ripple host + particle */
+.gwx-ripple-host {
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gwx-ripple {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 999px;
+  transform: scale(0);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0.14) 70%, rgba(255, 255, 255, 0) 100%);
+  animation: gwxRipple 0.62s ease-out forwards;
+}
+
+.gwx-ripple-host > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Better mobile structure */
+@media (max-width: 1280px) {
+  .gw-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .side-right {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 980px) {
+  .gw-topbar {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    align-items: stretch;
+  }
+
+  .gw-topbar .left,
+  .gw-topbar .center,
+  .gw-topbar .right {
+    width: 100%;
+  }
+
+  .gw-search {
+    width: 100%;
+  }
+
+  .gw-kpi-row {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(180px, 1fr);
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .kpi-card {
+    scroll-snap-align: start;
+  }
+
+  .gw-2col,
+  .gw-2x2-row,
+  .gw-2x2-row2 {
+    display: grid;
+    grid-template-columns: 1fr !important;
+  }
+
+  .side-right {
+    grid-template-columns: 1fr;
+  }
+
+  .card-body-scroll {
+    max-height: none !important;
+    overflow: auto;
+  }
+
+  .tbl.board,
+  .tbl.board.abs {
+    min-width: 760px;
+  }
+
+  .gw-modal-panel {
+    width: min(96vw, 720px) !important;
+    max-height: 88vh;
+  }
+
+  .gw-modal-body {
+    max-height: calc(88vh - 122px);
+    overflow: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .gw-topbar .sub {
+    display: none;
+  }
+
+  .gw-kpi-row {
+    grid-auto-columns: minmax(160px, 1fr);
+  }
+
+  .gw-content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gw-app::before {
+    animation: none !important;
+  }
+
+  .gw-topbar,
+  .gw-kpi-sticky,
+  .card,
+  .kpi-card,
+  .gw-nav-item,
+  .gw-nav-group-btn,
+  .btn,
+  .btn-chip,
+  .btn-soft,
+  .btn-icon,
+  .gw-logout,
+  .gw-modal .gw-modal-panel,
+  .gw-modal .gw-modal-backdrop {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+@keyframes gwxAura {
+  from {
+    opacity: 0.28;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0.45;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gwxTopIn {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gwxRise {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes gwxRipple {
+  from {
+    transform: scale(0);
+    opacity: 0.72;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
